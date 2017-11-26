@@ -29,7 +29,7 @@ public class GeoLookupTest {
     }
 
     @Test
-    public void saveLecturer() throws Exception {
+    public void geoLookupTest() throws Exception {
         MvcResult mvcResult = mvc.perform(post("/geolookup")
                 .contentType(MediaType.APPLICATION_JSON).content(
                         "MVB,  Woodland Rd, BS8 1UB"
