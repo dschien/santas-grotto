@@ -12,10 +12,9 @@ import java.util.List;
  * Created by csxds on 26/11/2017.
  */
 @Entity
-// Default table name "User" is reserved...
+// Default table name "UserAccount" is reserved...
 //https://stackoverflow.com/questions/4350874/unable-to-use-table-named-user-in-postgresql-hibernate
-@Table(name = "`user`")
-public class User {
+public class UserAccount {
 
     @Id
     @NotNull
@@ -26,7 +25,7 @@ public class User {
     String email;
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "userAccount")
     List<EventBooking> eventBooking = new ArrayList<>();
 
     public String getEmail() {
@@ -45,7 +44,7 @@ public class User {
         this.userName = userName;
     }
 
-    public User() {
+    public UserAccount() {
 
     }
 

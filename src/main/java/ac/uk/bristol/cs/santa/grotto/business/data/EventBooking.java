@@ -16,7 +16,7 @@ public class EventBooking {
 
     @NotNull
     @ManyToOne
-    User user;
+    UserAccount userAccount;
 
 
     @NotNull
@@ -37,12 +37,12 @@ public class EventBooking {
         this.event = event;
     }
 
-    public User getUser() {
-        return user;
+    public UserAccount getUserAccount() {
+        return userAccount;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 
     public Integer getVisitors() {

@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -17,20 +18,21 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import javax.transaction.Transactional;
-import java.time.OffsetDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by csxds on 26/11/2017.
  */
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class})
-@ActiveProfiles("test")
-@Transactional
+@RunWith(SpringRunner.class) // junit test runner
+@SpringBootTest // read app context
+// overwrite default TestExecutionListeners in order to add DbUnitTestExecutionListener
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
+        TransactionalTestExecutionListener.class, // use transactional test execution
+        DbUnitTestExecutionListener.class}) // to read datasets from file
+@ActiveProfiles("test") // use application-test.yml properties (in-memory DB)
+@Transactional // rollback DB in between tests
 public class GrottoTest {
 
 
@@ -46,14 +48,15 @@ public class GrottoTest {
     UserRepository userRepository;
 
 
-//    @Test
-//    @DatabaseSetup("/grotto_test.xml")
-//    public void basic_test() {
-//        Grotto grotto = grottoRepository.findOne(1L);
-//        System.out.println(grotto.getName());
-////        System.out.println(grotto.getEvents().size());
-////        System.out.println(eventRepository.findOne(1L).getId());
-//    }
+    @Test
+    @DatabaseSetup("/grotto_test.xml") // read dataset from file
+    public void basic_test() {
+        Grotto grotto = grottoRepository.findOne(1L);
+        Assert.assertTrue(eventRepository.count() == 1L);
+        Assert.assertTrue(eventBookingRepository.count() == 1L);
+        Assert.assertTrue(userRepository.count() == 1L);
+        Assert.assertTrue(grottoRepository.count() == 1L);
+    }
 
     @Test
     public void createGrottoTest() {
@@ -68,19 +71,53 @@ public class GrottoTest {
 
     }
 
+    /**
+     * Test that saving new event will cascade to transient grotto
+     */
     @Test
-    public void createGrottoEventTest() {
+    public void cascadeEventSaveTest() {
 
         Assert.assertTrue(eventRepository.count() == 0L);
+        Assert.assertTrue(grottoRepository.count() == 0L);
 
         Grotto grotto = new Grotto();
-        grotto.setName("Test Grotto");
+        String name = "Test Grotto";
+        grotto.setName(name);
         grotto.setAddress("Finland");
 
         Event event = new Event();
-        event.setDate(OffsetDateTime.parse("2017-12-03T10:15:30+01:00"));
+        event.setDate(new Date());
         event.setGrotto(grotto);
+        grotto.getEvents().add(event);
 
+        eventRepository.save(event);
+
+        Assert.assertTrue(eventRepository.count() == 1L);
+        Assert.assertTrue(eventRepository.count() == grottoRepository.count());
+
+        List<Grotto> grottos = grottoRepository.findByName(name);
+        List<Event> events = grottos.get(0).getEvents();
+
+        Assert.assertTrue(events.size() == 1L);
+
+    }
+
+    /**
+     * Test that saving new grotto and event with {@link Grotto#addEvent} will cascade to events and fill bidirectional.
+     */
+    @Test
+    public void createGrottoEventWithHelperTest() {
+
+        Assert.assertTrue(eventRepository.count() == 0L);
+        Assert.assertTrue(grottoRepository.count() == 0L);
+
+        Grotto grotto = new Grotto();
+        String name = "Test Grotto";
+        grotto.setName(name);
+        grotto.setAddress("Finland");
+
+        Event event = new Event();
+        event.setDate(new Date());
         grotto.addEvent(event);
 
         eventRepository.save(event);
@@ -88,10 +125,10 @@ public class GrottoTest {
         Assert.assertTrue(eventRepository.count() == 1L);
         Assert.assertTrue(eventRepository.count() == grottoRepository.count());
 
-        List<Event> events = grottoRepository.findOne(1L).getEvents();
+        List<Grotto> grottos = grottoRepository.findByName(name);
+        List<Event> events = grottos.get(0).getEvents();
 
         Assert.assertTrue(events.size() == 1L);
-
 
     }
 
@@ -105,21 +142,21 @@ public class GrottoTest {
         grotto.setAddress("Finland");
 
         Event event = new Event();
-        event.setDate(OffsetDateTime.parse("2017-12-03T10:15:30+01:00"));
+        event.setDate(new Date());
         event.setGrotto(grotto);
 
         grotto.addEvent(event);
         eventRepository.save(event);
 
-        User user = new User();
-        user.setUserName("testuser");
-        user.setEmail("test@me.com");
+        UserAccount userAccount = new UserAccount();
+        userAccount.setUserName("testuser");
+        userAccount.setEmail("test@me.com");
 
-        userRepository.save(user);
+        userRepository.save(userAccount);
 
         EventBooking eventBooking = new EventBooking();
         eventBooking.setVisitors(3);
-        eventBooking.setUser(user);
+        eventBooking.setUserAccount(userAccount);
         eventBooking.setEvent(event);
 
         eventBookingRepository.save(eventBooking);

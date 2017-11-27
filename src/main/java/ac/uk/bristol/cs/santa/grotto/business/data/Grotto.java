@@ -13,18 +13,20 @@ public class Grotto {
 
     @Id
     @GeneratedValue
-    Long id;
+    private Long id;
+
+    @NotNull
+    private String name;
+
+    @NotNull
+    private String address;
+
+    @OneToMany(mappedBy = "grotto", cascade = CascadeType.ALL)
+    private List<Event> events = new ArrayList<>();
+
 
     public Grotto() {
     }
-
-    @NotNull
-    String name;
-    @NotNull
-    String address;
-
-    @OneToMany(mappedBy = "grotto", cascade = CascadeType.ALL)
-    List<Event> events = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -44,7 +46,8 @@ public class Grotto {
 
 
     public boolean addEvent(Event event) {
-        return events.add(event);
+        event.setGrotto(this);
+        return this.events.add(event);
     }
 
     public boolean removeEvent(Object o) {
@@ -63,7 +66,4 @@ public class Grotto {
         return events;
     }
 
-    public void setEvents(List<Event> events) {
-        this.events = events;
-    }
 }

@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Created by csxds on 26/11/2017.
@@ -13,10 +14,12 @@ import java.util.Collection;
 public class Event {
     @Id
     @GeneratedValue
-    Long id;
+    private Long id;
 
     @NotNull
-    OffsetDateTime date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date date;
+
 
     public Event() {
     }
@@ -29,12 +32,16 @@ public class Event {
         this.id = id;
     }
 
-    public OffsetDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(OffsetDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Collection<EventBooking> getEventBookings() {
+        return eventBookings;
     }
 
     public Grotto getGrotto() {
@@ -47,8 +54,8 @@ public class Event {
 
     @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
-    Grotto grotto;
+    private Grotto grotto;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-    Collection<EventBooking> eventBookings = new ArrayList<>();
+    private Collection<EventBooking> eventBookings = new ArrayList<>();
 }
