@@ -11,16 +11,12 @@ import ac.uk.bristol.cs.santa.grotto.rest.GrottoDTO;
 import com.google.maps.errors.ApiException;
 import com.sun.tools.javac.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -64,7 +60,7 @@ public class MainController {
         return "event_form";
     }
 
-    
+
     @PostMapping("/event")
     public String submitEvent(@ModelAttribute Event event) {
         eventRepository.save(event);
