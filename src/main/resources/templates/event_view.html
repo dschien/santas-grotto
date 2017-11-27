@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: head (title='Grotto')">
+</head>
+
+
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 starter-template">
+
+            <h1>Event</h1>
+            <table class="table">
+                <tr>
+                    <td>Grotto Name</td>
+                    <td><span th:text="${event.grotto.name}"/></td>
+                </tr>
+                <tr>
+                    <td>Date</td>
+                    <td><span th:text="${event.date}"/></td>
+                </tr>
+            </table>
+            <a class="btn btn-default" href="/event/add">Add a new Event</a>
+
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer">...</div>
+</body>
+</html>

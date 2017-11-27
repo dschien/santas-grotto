@@ -1,20 +1,26 @@
 package ac.uk.bristol.cs.santa.grotto;
 
 import ac.uk.bristol.cs.santa.grotto.business.GeoLookup;
+import ac.uk.bristol.cs.santa.grotto.business.data.Event;
+import ac.uk.bristol.cs.santa.grotto.business.data.EventRepository;
+import ac.uk.bristol.cs.santa.grotto.business.data.Grotto;
+import ac.uk.bristol.cs.santa.grotto.business.data.GrottoRepository;
 import ac.uk.bristol.cs.santa.grotto.business.route.Location;
 import ac.uk.bristol.cs.santa.grotto.business.route.LocationRoutePlanning;
 import ac.uk.bristol.cs.santa.grotto.rest.GrottoDTO;
 import com.google.maps.errors.ApiException;
 import com.sun.tools.javac.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -25,6 +31,51 @@ public class MainController {
 
     @Autowired
     private GeoLookup geoLookup;
+
+    @Autowired
+    private GrottoRepository grottoRepository;
+
+    @Autowired
+    private EventRepository eventRepository;
+
+    @GetMapping("/grotto/add")
+    public String addGrotto(Model model) {
+        model.addAttribute("grotto", new Grotto());
+        return "grotto_form";
+    }
+
+    @PostMapping("/grotto")
+    public String submitGrotto(@ModelAttribute Grotto grotto) {
+        grottoRepository.save(grotto);
+        return "grotto_view";
+    }
+
+    @GetMapping("/grotto/{id}")
+    public String viewGrotto(@PathVariable Long id, Model model) {
+        model.addAttribute("grotto", grottoRepository.findOne(id));
+        return "grotto_view";
+    }
+
+
+    @GetMapping("/event/add")
+    public String addEvent(Model model) {
+        model.addAttribute("event", new Event());
+        model.addAttribute("grottos", grottoRepository.findAll());
+        return "event_form";
+    }
+
+    
+    @PostMapping("/event")
+    public String submitEvent(@ModelAttribute Event event) {
+        eventRepository.save(event);
+        return "event_view";
+    }
+
+    @GetMapping("/event/{id}")
+    public String viewEvent(@PathVariable Long id, Model model) {
+        model.addAttribute("event", eventRepository.findOne(id));
+        return "event_view";
+    }
 
 
     @RequestMapping(value = "/geolookup", method = RequestMethod.POST)

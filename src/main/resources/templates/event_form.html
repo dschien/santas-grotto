@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: head (title='Add Grotto')">
+</head>
+
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<div class="container">
+    <div class="row">
+        <h1>New Event</h1>
+        <form action="#" th:action="@{/event}" th:object="${event}" method="post" class="form-inline">
+            <div class="form-group blu-margin">
+                <select th:field="*{grotto}" id="dropGrotto" class="form-control">
+
+                    <option th:each="grotto : ${grottos}" th:value="${grotto.id.toString()}"
+                            th:text="${grotto.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="datetime">Date and Time</label>
+                <input type="datetime" th:value="${event.date}" th:field="${event.date}" id="datetime"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer">...</div>
+</body>
+</html>

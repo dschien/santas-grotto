@@ -1,5 +1,7 @@
 package ac.uk.bristol.cs.santa.grotto.business.data;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
@@ -18,6 +20,8 @@ public class Event {
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private java.util.Date date;
 
 
