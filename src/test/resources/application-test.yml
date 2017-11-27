@@ -1,0 +1,23 @@
+spring:
+  profiles: test
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1
+#    username: santa
+#    password: hohoho
+  jpa:
+    hibernate:
+      connection:
+        charset: utf8
+        useUnicode: true
+        # Hibernate ddl auto (create, create-drop, update): with "update" the database
+        # schema will be automatically updated accordingly to java entities found in
+        # the project
+      ddl-auto: create
+      # Show or not log for each sql query
+#      show-sql: false
+    # Naming strategy
+    naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+# Allows Hibernate to generate SQL optimized for a particular DBMS
+    properties.hibernate.dialect: org.hibernate.dialect.H2Dialect
+
