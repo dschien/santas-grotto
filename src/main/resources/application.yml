@@ -1,3 +1,13 @@
 external-services:
   google-maps:
     api-key: ${GOOGLE_MAPS_API_KEY}
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+
+spring:
+  profiles.active: dev
+  thymeleaf:
+    cache: false

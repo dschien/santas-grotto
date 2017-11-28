@@ -1,0 +1,23 @@
+spring:
+  profiles: dev
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/grottodb
+    username: santa
+    password: hohoho
+  jpa:
+    hibernate:
+      connection:
+        charset: utf8
+        useUnicode: true
+        # Hibernate ddl auto (create, create-drop, update): with "update" the database
+        # schema will be automatically updated accordingly to java entities found in
+        # the project
+      ddl-auto: update
+      # Show or not log for each sql query
+#      show-sql: false
+    # Naming strategy
+    naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+# Allows Hibernate to generate SQL optimized for a particular DBMS
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQL94Dialect
+

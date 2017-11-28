@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <grotto id="1" name="Bristol Zoo" address="Bristol Zoo Gardens, Clifton, Bristol, BS8 3HA"/>
+    <event id="1" grotto_id="1" date="2017-12-03 10:15:00"/>
+    <user_account user_name="testuser" email="test@me.com"/>
+    <event_booking id="1" user_account_user_name="testuser" event_id="1" visitors="3"/>
+
+</dataset>
