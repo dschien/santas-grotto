@@ -1,5 +1,11 @@
 spring:
+
   profiles: dev
+
+  thymeleaf:
+    # do not cache -> hot reload of templates
+    cache: false
+
   datasource:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/grottodb
