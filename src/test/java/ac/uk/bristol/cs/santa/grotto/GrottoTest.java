@@ -41,6 +41,7 @@ public class GrottoTest {
 
     @Autowired
     EventRepository eventRepository;
+
     @Autowired
     EventBookingRepository eventBookingRepository;
 
@@ -118,6 +119,7 @@ public class GrottoTest {
 
         Event event = new Event();
         event.setDate(new Date());
+
         grotto.addEvent(event);
 
         eventRepository.save(event);

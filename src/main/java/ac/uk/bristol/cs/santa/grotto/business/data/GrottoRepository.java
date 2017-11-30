@@ -10,5 +10,4 @@ import java.util.List;
 
 public interface GrottoRepository extends CrudRepository<Grotto, Long> {
     List<Grotto> findByName(String name);
-
 }

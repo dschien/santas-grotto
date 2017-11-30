@@ -12,18 +12,25 @@ import java.util.Date;
 /**
  * Created by csxds on 26/11/2017.
  */
+// JAP - java persistence API
 @Entity
 public class Event {
+
     @Id
     @GeneratedValue
     private Long id;
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private java.util.Date date;
 
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Grotto grotto;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    private Collection<EventBooking> eventBookings = new ArrayList<>();
 
     public Event() {
     }
@@ -56,10 +63,4 @@ public class Event {
         this.grotto = grotto;
     }
 
-    @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Grotto grotto;
-
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-    private Collection<EventBooking> eventBookings = new ArrayList<>();
 }
