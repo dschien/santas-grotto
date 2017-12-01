@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: head (title='Book Event')">
+</head>
+
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<div class="container">
+    <div class="row">
+        <h1>New Event</h1>
+        <form action="#" th:action="@{/eventbooking}" th:object="${eventbooking}" method="post" class="form-inline">
+            <div class="form-group blu-margin">
+                <select th:field="*{event}" id="dropevent" class="form-control">
+
+                    <option th:each="event : ${events}" th:value="${event.id.toString()}"
+                            th:text="${event.grotto.name + ':' + event.date}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="visitorField">Visitors</label>
+                <input type="number" th:value="${eventbooking.visitors}" th:field="${eventbooking.visitors}" id="visitorField"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </form>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer">...</div>
+</body>
+</html>

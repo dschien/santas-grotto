@@ -1,10 +1,7 @@
 package ac.uk.bristol.cs.santa.grotto;
 
 import ac.uk.bristol.cs.santa.grotto.business.GeoLookup;
-import ac.uk.bristol.cs.santa.grotto.business.data.Event;
-import ac.uk.bristol.cs.santa.grotto.business.data.EventRepository;
-import ac.uk.bristol.cs.santa.grotto.business.data.Grotto;
-import ac.uk.bristol.cs.santa.grotto.business.data.GrottoRepository;
+import ac.uk.bristol.cs.santa.grotto.business.data.*;
 import ac.uk.bristol.cs.santa.grotto.business.route.Location;
 import ac.uk.bristol.cs.santa.grotto.business.route.LocationRoutePlanning;
 import ac.uk.bristol.cs.santa.grotto.rest.GrottoDTO;
@@ -14,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -23,7 +23,21 @@ import java.util.stream.Collectors;
  * Created by csxds on 24/11/2017.
  */
 @Controller
-public class MainController {
+public class MainController extends WebMvcConfigurerAdapter {
+    @Autowired
+    private UserRepository userRepository;
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("index");
+        registry.addViewController("/login");
+    }
+
+    @RequestMapping("/login-error.html")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login.html";
+    }
 
     @Autowired
     private GeoLookup geoLookup;
@@ -71,6 +85,35 @@ public class MainController {
     public String viewEvent(@PathVariable Long id, Model model) {
         model.addAttribute("event", eventRepository.findOne(id));
         return "event_view";
+    }
+
+    @GetMapping("/eventbooking/add")
+    public String addEventBooking(Model model) {
+        model.addAttribute("eventbooking", new EventBooking());
+        model.addAttribute("events", eventRepository.findAll());
+        return "eventbooking_form";
+    }
+
+    @Autowired
+    private
+    EventBookingRepository eventBookingRepository;
+
+    @PostMapping("/eventbooking")
+    public String submitEventBooking(@ModelAttribute EventBooking eventbooking, Principal principal, Model model) {
+
+        UserAccount userAccount = userRepository.findByUserName(principal.getName());
+        eventbooking.setUserAccount(userAccount);
+        eventBookingRepository.save(eventbooking);
+
+        model.addAttribute("eventbooking", eventbooking);
+
+        return "eventbooking_view";
+    }
+
+    @GetMapping("/eventbooking/{id}")
+    public String viewEventBooking(@PathVariable Long id, Model model) {
+        model.addAttribute("eventbooking", eventBookingRepository.findOne(id));
+        return "eventbooking_view";
     }
 
 

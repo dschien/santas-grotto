@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: head (title='Grotto')">
+</head>
+
+
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 starter-template">
+
+            <div th:if="${param.error}">
+                Invalid username and password.
+            </div>
+            <div th:if="${param.logout}">
+                You have been logged out.
+            </div>
+            <p th:if="${loginError}" class="error">Wrong user or password</p>
+            <form th:action="@{/login}" method="post">
+                <div class="form-group"><label> User Name : <input class="form-control" type="text" name="username"/>
+                </label></div>
+                <div class="form-group"><label> Password: <input class="form-control" type="password" name="password"/>
+                </label></div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer">...</div>
+</body>
+</html>

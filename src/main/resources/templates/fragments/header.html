@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:fragment="head (title)">
 
@@ -26,7 +27,8 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top" th:fragment="header">
+<!-- top navigation for interfaces logged in user -->
+<nav class="navbar navbar-default navbar-fixed-top" th:fragment="header" sec:authorize="isAuthenticated()">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -38,6 +40,46 @@
             </button>
             <a class="navbar-brand" href="#">Santas Grotto</a>
         </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li th:class="${actionName == 'home' or actionName == 'admin'} ? 'active' : ''">
+                    <a href="/admin/">Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li sec:authorize="isAuthenticated()"><p class="navbar-btn"><a class="btn btn-sm btn-success"
+                                                                               href="/logout">Logout</a></p></li>
+                <li sec:authorize="isAnonymous()"><p class="navbar-btn"><a class="btn btn-sm btn-primary" role="button"
+                                                                           href="/login">Login</a></p></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+
+<nav class="navbar navbar-default navbar-fixed-top" th:fragment="header" sec:authorize="isAnonymous()">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Santas Grotto</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li th:class="${actionName == 'home'} ? 'active' : ''"><a href="/">Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+                <li sec:authorize="isAuthenticated()"><p class="navbar-btn"><a class="btn btn-sm btn-success"
+                                                                               href="/logout">Logout</a></p></li>
+                <li sec:authorize="isAnonymous()"><p class="navbar-btn"><a class="btn btn-sm btn-primary" role="button"
+                                                                           href="/login">Login</a></p></li>
+            </ul>
+        </div><!--/.nav-collapse -->
     </div>
 </nav>
 

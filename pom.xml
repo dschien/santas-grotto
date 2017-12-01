@@ -30,10 +30,11 @@
         <spring-test-dbunit.version>1.3.0</spring-test-dbunit.version>
         <dbunit.version>2.5.4</dbunit.version>
         <commons-validator.version>1.6</commons-validator.version>
+        <spring-security-test.version>4.2.3.RELEASE</spring-security-test.version>
     </properties>
 
     <dependencies>
-        <!--spring boot basics-->
+        <!--spring boot core-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -110,6 +111,27 @@
             <artifactId>jquery</artifactId>
             <version>${webjars.jquery.version}</version>
         </dependency>
+
+        <!--security-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+            <version>${spring-security-test.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.security.oauth</groupId>-->
+            <!--<artifactId>spring-security-oauth2</artifactId>-->
+        <!--</dependency>-->
     </dependencies>
 
     <build>
