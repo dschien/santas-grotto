@@ -5,7 +5,6 @@
 <head th:include="fragments/header :: head (title='Grotto')">
 </head>
 
-
 <body>
 <div th:replace="fragments/header :: header">&nbsp;</div>
 <div class="container">
@@ -14,6 +13,10 @@
 
             <h1>Grotto</h1>
             <table class="table">
+                <tr>
+                    <td>Id</td>
+                    <td><span th:text="${grotto.id}"/></td>
+                </tr>
                 <tr>
                     <td>Name</td>
                     <td><span th:text="${grotto.name}"/></td>

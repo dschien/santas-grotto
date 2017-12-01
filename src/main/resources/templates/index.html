@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:include="fragments/header :: head (title='Grotto')">
+</head>
+
+
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 starter-template">
+
+            <h1>Welcome to Santas Grotto</h1>
+
+            <img th:src="@{/images/index.jpg}" height="500"/>
+
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer">...</div>
+</body>
+</html>
