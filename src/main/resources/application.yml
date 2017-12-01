@@ -4,8 +4,8 @@ external-services:
 
 logging:
   level:
-    root: DEBUG
-    org.springframework.web: DEBUG
+    root: INFO
+    org.springframework.web: INFO
 
 spring:
   profiles.active: dev

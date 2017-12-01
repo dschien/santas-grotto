@@ -1,6 +1,9 @@
 package ac.uk.bristol.cs.santa.grotto.business.data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -11,19 +14,23 @@ public class EventBooking {
 
     @Id
     @GeneratedValue
+    private
     Long id;
 
 
     @NotNull
     @ManyToOne
+    private
     UserAccount userAccount;
 
 
     @NotNull
     @ManyToOne
+    private
     Event event;
 
     @NotNull
+    private
     Integer visitors;
 
     public EventBooking() {
