@@ -3,8 +3,6 @@ package ac.uk.bristol.cs.testutil;
 import com.github.springtestdbunit.dataset.DataSetLoader;
 import com.github.springtestdbunit.dataset.FlatXmlDataSetLoader;
 import com.github.springtestdbunit.dataset.ReplacementDataSetLoader;
-import org.dbunit.dataset.ReplacementDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSet;
 
 import java.time.OffsetDateTime;
 import java.util.Collections;

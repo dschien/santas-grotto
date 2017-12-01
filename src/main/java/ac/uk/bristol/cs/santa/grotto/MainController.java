@@ -6,8 +6,9 @@ import ac.uk.bristol.cs.santa.grotto.business.route.Location;
 import ac.uk.bristol.cs.santa.grotto.business.route.LocationRoutePlanning;
 import ac.uk.bristol.cs.santa.grotto.rest.GrottoDTO;
 import com.google.maps.errors.ApiException;
-import com.sun.tools.javac.util.Pair;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,11 @@ public class MainController extends WebMvcConfigurerAdapter {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * view controllers without logic
+     *
+     * @param registry
+     */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
@@ -98,6 +104,16 @@ public class MainController extends WebMvcConfigurerAdapter {
     private
     EventBookingRepository eventBookingRepository;
 
+    /**
+     * Create booking for logged in user.
+     * <p>
+     * We get the logged in user from Spring and then look up the UserAccount for this user.
+     *
+     * @param eventbooking
+     * @param principal
+     * @param model
+     * @return
+     */
     @PostMapping("/eventbooking")
     public String submitEventBooking(@ModelAttribute EventBooking eventbooking, Principal principal, Model model) {
 
@@ -133,7 +149,7 @@ public class MainController extends WebMvcConfigurerAdapter {
         ArrayList<Location> locations = new ArrayList<>();
         for (GrottoDTO grotto : grottos) {
             Pair<Double, Double> latLong = geoLookup.latLngFromAddress(grotto.getAddress());
-            locations.add(new Location(grotto.getName(), latLong.fst, latLong.snd));
+            locations.add(new Location(grotto.getName(), latLong.getFirst(), latLong.getSecond()));
         }
         ArrayList<Location> tour = routePlanning.computeOptimalTour(locations, 1000);
         return tour.stream()

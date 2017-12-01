@@ -2,7 +2,6 @@ package ac.uk.bristol.cs.santa.grotto;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.PropertySource;
 
 @PropertySource("file:${user.home}/.secret.properties")

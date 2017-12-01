@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by csxds on 01/12/2017.
+ * <p>
+ * "Script" to run at application start.
+ * <p>
+ * Fill database with initial state.
  */
 
 

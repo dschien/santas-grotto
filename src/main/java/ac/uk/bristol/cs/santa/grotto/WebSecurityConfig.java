@@ -19,10 +19,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                // make static resources available
                 .antMatchers("/css/**", "/images/**", "/webjars/**").permitAll()
+                // allow browsing index
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                // configure login
                 .formLogin()
                 .loginPage("/login")
                 .failureUrl("/login-error.html")
@@ -46,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-
+        // create some dummy users
         auth
                 .inMemoryAuthentication()
                 .withUser("user").password("password").roles("USER");
