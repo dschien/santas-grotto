@@ -236,9 +236,9 @@ The final bit of sugar is to highlight errors with a bit of colour. Bootstrap do
 
 The form html does become a bit hard to read, I admit, but it looks good to the user.
 
-<a href="url"><img src="https://github.com/dschien/santas-grotto/raw/master/doc/validation.png" align="left" width="348" ></a>
-
-
+<a href="url"><img src="https://github.com/dschien/santas-grotto/raw/master/doc/validation.png" align="left" width="348" >
+</a>
+<br/>
 
 
 ```html
