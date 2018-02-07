@@ -234,8 +234,10 @@ public String submitContact(@Valid ContactRequest contact, BindingResult binding
 
 The final bit of sugar is to highlight errors with a bit of colour. Bootstrap does that for us nicely.
 
-The form html does become a bit hard to read, I admit, but it looks good to the user.
+The main elements here are the thymeleaf classappend command (with an inline elvis operator ?:) `th:classappend="${#fields.hasErrors('name')} ? has-error : blu-margin">`
+and a bunch of bootstrap classes.
 
+The form html does become a bit hard to read, I admit, but it looks good to the user.
 
 
 ```html
@@ -263,8 +265,6 @@ The form html does become a bit hard to read, I admit, but it looks good to the 
 </form>
 ```
 
-<a href="url"><img src="https://github.com/dschien/santas-grotto/raw/master/doc/validation.png" align="left" width="348"></a>
+<a href="url"><img src="https://github.com/dschien/santas-grotto/raw/master/doc/validation.png" width="348"></a>
 
 
-The main elements here are the thymeleaf classappend command (with an inline elvis operator ?:) `th:classappend="${#fields.hasErrors('name')} ? has-error : blu-margin">`
-and a bunch of bootstrap classes.
