@@ -1,6 +1,6 @@
 # A Contact Form with Spring Step-by-Step
 
-The following is a detailed description of the project [contact form](https://github.com/dschien/santas-grotto/blob/master/src/main/resources/templates/contact.html) and the structure of corresponding [spring request handlers](https://github.com/dschien/santas-grotto/blob/e4225eb114fad82b9ef98b31aad8b17dda0b875e/src/main/java/ac/uk/bristol/cs/santa/grotto/MainController.java#L103). 
+The following is a detailed description of the project [contact form](https://github.com/dschien/santas-grotto/blob/master/src/main/resources/templates/contact.html) and the structure of corresponding [spring request handlers](https://github.com/dschien/santas-grotto/blob/e4225eb114fad82b9ef98b31aad8b17dda0b875e/src/main/java/ac/uk/bristol/cs/santa/grotto/MainController.java#L98). 
 
 ## HTML Forms
 
