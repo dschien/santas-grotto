@@ -61,7 +61,7 @@ Once we have the template complete and stored in the `resource/templates` folder
 
 ### GET Handler
 
-Because the contact form needs to processing and can be sent out as is, we can just register it with the default view controller as :
+Because the contact form needs to processing and can be sent out as is, we can just register it with the [default view controller] (https://github.com/dschien/santas-grotto/blob/e4225eb114fad82b9ef98b31aad8b17dda0b875e/src/main/java/ac/uk/bristol/cs/santa/grotto/MainController.java#L44) as :
 
 ```java
 @Override
@@ -72,7 +72,7 @@ public void addViewControllers(ViewControllerRegistry registry) {
 ```
 
 #### Whitelist in Security Controller
-In order for visitors to our page to contact us without login we need to whitelist the path in our `WebSecurityConfig`.
+In order for visitors to our page to contact us without login we need to whitelist the path in our [`WebSecurityConfig`](https://github.com/dschien/santas-grotto/blob/c2a3ffd0b10e87d1387bd365466f686be0c4828d/src/main/java/ac/uk/bristol/cs/santa/grotto/WebSecurityConfig.java#L25).
 
 ```java
 protected void configure(HttpSecurity http) throws Exception {
