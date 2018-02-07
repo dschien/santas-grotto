@@ -236,7 +236,7 @@ The final bit of sugar is to highlight errors with a bit of colour. Bootstrap do
 
 The form html does become a bit hard to read, I admit, but it looks good to the user.
 
-![img](validation.png)
+![img](validation.png){:width="236px"}
 
 ```html
 <form th:action="@{/contact}" th:object="${contactRequest}" method="post" class="form" role="form">
