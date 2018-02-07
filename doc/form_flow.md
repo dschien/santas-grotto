@@ -260,8 +260,11 @@ The form html does become a bit hard to read, I admit, but it looks good to the 
 
     <button type="submit" class="btn btn-primary">Submit</button>
 
-            </form>
+</form>
 ```
 
 <a href="url"><img src="https://github.com/dschien/santas-grotto/raw/master/doc/validation.png" align="left" width="348"></a>
 
+
+The main elements here are the thymeleaf classappend command (with an inline elvis operator ?:) `th:classappend="${#fields.hasErrors('name')} ? has-error : blu-margin">`
+and a bunch of bootstrap classes.
