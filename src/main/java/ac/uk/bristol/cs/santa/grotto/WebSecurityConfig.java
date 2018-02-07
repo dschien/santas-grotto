@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // make static resources available
                 .antMatchers("/css/**", "/images/**", "/webjars/**").permitAll()
                 // allow browsing index
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/terms", "/contact").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // configure login

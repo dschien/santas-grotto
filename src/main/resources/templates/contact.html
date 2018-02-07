@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="fragments/header :: head (title='Contact Us')">
+</head>
+
+<body>
+<div th:replace="fragments/header :: header">&nbsp;</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>Contact Us</h1>
+
+            <form th:action="@{/contact}" th:object="${contactRequest}" method="post" class="form" role="form">
+                <span th:text="${message}" class="text-success"></span>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? has-error : blu-margin">
+                    <label class="control-label" for="name">Name</label>
+                    <input type="text" id="name" class="form-control" th:field="*{name}"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="help-block"></span>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('email')} ? has-error : blu-margin">
+                    <label class="control-label" for="email">Email</label>
+                    <input type="email" id="email" th:field="*{email}" class="form-control"/>
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="help-block"></span>
+                </div>
+                <div class="form-group" th:classappend="${#fields.hasErrors('body')} ? has-error : blu-margin">
+                    <label class="control-label" for="body">Content</label>
+                    <textarea class="form-control" rows="5" id="body" th:field="*{body}"></textarea>
+                    <span th:if="${#fields.hasErrors('body')}" th:errors="*{body}" class="help-block"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+
+            </form>
+
+        </div>
+    </div>
+
+
+</div>
+<div th:replace="fragments/footer :: footer">...</div>
+</body>
+</html>

@@ -6,15 +6,19 @@ import ac.uk.bristol.cs.santa.grotto.business.route.Location;
 import ac.uk.bristol.cs.santa.grotto.business.route.LocationRoutePlanning;
 import ac.uk.bristol.cs.santa.grotto.rest.GrottoDTO;
 import com.google.maps.errors.ApiException;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -25,6 +29,9 @@ import java.util.stream.Collectors;
  */
 @Controller
 public class MainController extends WebMvcConfigurerAdapter {
+
+    private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+
     @Autowired
     private UserRepository userRepository;
 
@@ -35,14 +42,16 @@ public class MainController extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/contact");
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/login");
+        registry.addViewController("/terms").setViewName("terms");
     }
 
     @RequestMapping("/login-error.html")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
-        return "login.html";
+        return "login";
     }
 
     @Autowired
@@ -60,11 +69,13 @@ public class MainController extends WebMvcConfigurerAdapter {
         return "grotto_form";
     }
 
+
     @PostMapping("/grotto")
     public String submitGrotto(@ModelAttribute Grotto grotto) {
         grottoRepository.save(grotto);
         return "grotto_view";
     }
+
 
     @GetMapping("/grotto/{id}")
     public String viewGrotto(@PathVariable Long id, Model model) {
@@ -78,6 +89,25 @@ public class MainController extends WebMvcConfigurerAdapter {
         model.addAttribute("event", new Event());
         model.addAttribute("grottos", grottoRepository.findAll());
         return "event_form";
+    }
+
+    @Autowired
+    private ContactRequestRepository contactRepository;
+
+
+    @GetMapping("/contact")
+    public String showContactForm(ContactRequest contact) {
+        return "contact";
+    }
+
+    @PostMapping(value = "/contact")
+    public String submitContact(@Valid ContactRequest contact, BindingResult binding, RedirectAttributes attr) {
+        if (binding.hasErrors()) {
+            return "/contact";
+        }
+        contactRepository.save(contact);
+        attr.addFlashAttribute("message", "Thank you for your message. We'll be in touch ASAP");
+        return "redirect:/contact";
     }
 
 
