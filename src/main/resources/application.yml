@@ -8,6 +8,8 @@ logging:
     org.springframework.web: INFO
 
 spring:
-  profiles.active: dev
+  #  set env variable SPRING_PROFILES_ACTIVE=dev on dev machine
+  profiles.active: prod
+
   thymeleaf:
     cache: false

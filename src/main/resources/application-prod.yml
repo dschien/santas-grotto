@@ -1,6 +1,6 @@
 spring:
 
-  profiles: dev
+  profiles: prod
 
   thymeleaf:
     # do not cache -> hot reload of templates
