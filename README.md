@@ -1,4 +1,6 @@
 # Santa's Grotto App
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdschien%2Fsantas-grotto.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdschien%2Fsantas-grotto?ref=badge_shield)
+
 
 
 # Dependencies
@@ -30,3 +32,6 @@
 
 Open in the browser:
 [http://localhost:8080/](http://localhost:8080/)
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdschien%2Fsantas-grotto.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdschien%2Fsantas-grotto?ref=badge_large)
