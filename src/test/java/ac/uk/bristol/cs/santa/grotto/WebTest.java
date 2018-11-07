@@ -1,6 +1,7 @@
 package ac.uk.bristol.cs.santa.grotto;
 
 import ac.uk.bristol.cs.santa.grotto.business.data.GrottoRepository;
+import ac.uk.bristol.cs.santa.grotto.controllers.WebController;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +31,7 @@ public class WebTest {
 
 
     @Autowired
-    private MainController mainController;
+    private WebController mainController;
 
     @Autowired
     private GrottoRepository grottoRepository;

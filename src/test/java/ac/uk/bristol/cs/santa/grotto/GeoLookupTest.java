@@ -1,5 +1,6 @@
 package ac.uk.bristol.cs.santa.grotto;
 
+import ac.uk.bristol.cs.santa.grotto.controllers.WebController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +22,7 @@ public class GeoLookupTest {
     private MockMvc mvc;
 
     @Autowired
-    private MainController mainController;
+    private WebController mainController;
 
     @Before
     public void setup() {

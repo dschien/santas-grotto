@@ -11,18 +11,19 @@
     <div class="row">
         <div class="col-md-8 starter-template">
 
-            <h1>Grotto</h1>
+            <h1>Grottos</h1>
             <table class="table">
-                <tr>
-                    <td>Id</td>
+                <thead>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Address</td>
+                </thead>
+                <tr th:each="grotto: ${grottos}">
+
                     <td><span th:text="${grotto.id}"/></td>
-                </tr>
-                <tr>
-                    <td>Name</td>
+
                     <td><span th:text="${grotto.name}"/></td>
-                </tr>
-                <tr>
-                    <td>Address</td>
+
                     <td><span th:text="${grotto.address}"/></td>
                 </tr>
             </table>

@@ -2,10 +2,17 @@ external-services:
   google-maps:
     api-key: ${GOOGLE_MAPS_API_KEY}
 
+initial_admin_account:
+  username: admin
+  password: ${initial_admin_password}
+
+
 logging:
+  path: logs
   level:
     root: INFO
-    org.springframework.web: INFO
+    ac.uk.bristol.cs.santa.grotto: DEBUG
+    org.springframework.web: DEBUG
 
 spring:
   #  set env variable SPRING_PROFILES_ACTIVE=dev on dev machine

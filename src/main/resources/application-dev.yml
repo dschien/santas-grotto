@@ -6,11 +6,14 @@ spring:
     # do not cache -> hot reload of templates
     cache: false
 
+#  datasource:
+#    driverClassName: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/grottodb
+#    username: santa
+#    password: ${db_password}
   datasource:
-    driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/grottodb
-    username: admin
-    password: ${db_password}
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1
   jpa:
     hibernate:
       connection:
@@ -25,5 +28,6 @@ spring:
     # Naming strategy
     naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
 # Allows Hibernate to generate SQL optimized for a particular DBMS
-    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQL95Dialect
+#    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQL94Dialect
+    properties.hibernate.dialect: org.hibernate.dialect.H2Dialect
 

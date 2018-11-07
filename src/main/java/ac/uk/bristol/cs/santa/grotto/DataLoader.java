@@ -1,8 +1,10 @@
 package ac.uk.bristol.cs.santa.grotto;
 
-import ac.uk.bristol.cs.santa.grotto.business.data.UserAccount;
-import ac.uk.bristol.cs.santa.grotto.business.data.UserRepository;
+import ac.uk.bristol.cs.santa.grotto.business.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -19,17 +21,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataLoader implements ApplicationRunner {
 
-    private UserRepository userRepository;
+    private static final Logger LOG = LoggerFactory.getLogger(DataLoader.class);
 
     @Autowired
-    public DataLoader(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserService userService;
+
 
     public void run(ApplicationArguments args) {
-        UserAccount s = new UserAccount();
-        s.setEmail("test@me.com");
-        s.setUserName("user");
-        userRepository.save(s);
+
+        LOG.debug("creating initial demo account");
+        userService.createUser("test", "ROLE_ADMIN", "test");
+
+
     }
 }

@@ -12,10 +12,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 /**
  * Created by csxds on 30/11/2017.
  */
-@Configuration
-@EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
+//@Configuration
+//@EnableWebSecurity
+public class WebSecurityConfig
+//        extends WebSecurityConfigurerAdapter {
+    {
+
+//    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
@@ -39,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Override
+//    @Override
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
@@ -47,14 +50,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        // create some dummy users
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
-
-    }
 
 
 }

@@ -9,7 +9,7 @@ spring:
   datasource:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/grottodb
-    username: admin
+    username: santa
     password: ${db_password}
   jpa:
     hibernate:
@@ -25,5 +25,5 @@ spring:
     # Naming strategy
     naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
 # Allows Hibernate to generate SQL optimized for a particular DBMS
-    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQL95Dialect
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQL94Dialect
 

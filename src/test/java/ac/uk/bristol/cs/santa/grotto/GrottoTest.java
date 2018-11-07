@@ -1,6 +1,7 @@
 package ac.uk.bristol.cs.santa.grotto;
 
 
+import ac.uk.bristol.cs.santa.grotto.business.UserService;
 import ac.uk.bristol.cs.santa.grotto.business.data.*;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -18,6 +19,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by csxds on 26/11/2017.
@@ -44,17 +46,22 @@ public class GrottoTest {
     EventBookingRepository eventBookingRepository;
 
     @Autowired
-    UserRepository userRepository;
+    ac.uk.bristol.cs.santa.grotto.business.UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
 
     @Test
     @DatabaseSetup("/grotto_test.xml") // read dataset from file
     public void basic_test() {
-        Grotto grotto = grottoRepository.findOne(1L);
-        Assert.assertTrue(eventRepository.count() == 1L);
-        Assert.assertTrue(eventBookingRepository.count() == 1L);
-        Assert.assertTrue(userRepository.count() == 1L);
-        Assert.assertTrue(grottoRepository.count() == 1L);
+        Optional<Grotto> grotto = grottoRepository.findById(1L);
+        if (grotto.isPresent()) {
+            Assert.assertTrue(eventRepository.count() == 1L);
+            Assert.assertTrue(eventBookingRepository.count() == 1L);
+            Assert.assertTrue(userRepository.count() == 1L);
+            Assert.assertTrue(grottoRepository.count() == 1L);
+        }
     }
 
     @Test
@@ -65,8 +72,10 @@ public class GrottoTest {
         grotto.setAddress("Finland");
         grottoRepository.save(grotto);
 
-        Grotto g2 = grottoRepository.findOne(1L);
-        Assert.assertTrue(grotto.getName().equals(g2.getName()));
+        Optional<Grotto> g2 = grottoRepository.findById(1L);
+        if (g2.isPresent()) {
+            Assert.assertTrue(grotto.getName().equals(g2.get().getName()));
+        }
 
     }
 
@@ -150,15 +159,11 @@ public class GrottoTest {
         grotto.addEvent(event);
         eventRepository.save(event);
 
-        UserAccount userAccount = new UserAccount();
-        userAccount.setUserName("testuser");
-        userAccount.setEmail("test@me.com");
-
-        userRepository.save(userAccount);
+        User user = userService.createUser("test", "ROLE_CUSTOMER", "test");
 
         EventBooking eventBooking = new EventBooking();
         eventBooking.setVisitors(3);
-        eventBooking.setUserAccount(userAccount);
+        eventBooking.setUser(user);
         eventBooking.setEvent(event);
 
         eventBookingRepository.save(eventBooking);

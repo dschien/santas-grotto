@@ -1,5 +1,6 @@
 package ac.uk.bristol.cs.santa.grotto;
 
+import ac.uk.bristol.cs.santa.grotto.controllers.WebController;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class GrottoRouteTest {
     private MockMvc mvc;
 
     @Autowired
-    private MainController mainController;
+    private WebController mainController;
 
     @Before
     public void setup() {
