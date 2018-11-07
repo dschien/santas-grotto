@@ -1,4 +1,4 @@
-package ac.uk.bristol.cs.santa.grotto;
+package ac.uk.bristol.cs.santa.grotto.geo;
 
 import ac.uk.bristol.cs.santa.grotto.controllers.WebController;
 import org.junit.Before;
