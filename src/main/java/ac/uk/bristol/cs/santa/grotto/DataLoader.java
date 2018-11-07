@@ -1,5 +1,6 @@
 package ac.uk.bristol.cs.santa.grotto;
 
+import ac.uk.bristol.cs.santa.grotto.business.UserRepository;
 import ac.uk.bristol.cs.santa.grotto.business.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,13 +26,25 @@ public class DataLoader implements ApplicationRunner {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
+
+    @Value("${initial_admin_account.password}")
+    private String password;
+    @Value("${initial_admin_account.username}")
+    private String username;
 
 
     public void run(ApplicationArguments args) {
 
-        LOG.debug("creating initial demo account");
-        userService.createUser("test", "ROLE_ADMIN", "test");
-
+        if (userRepository.findByUsername(username) == null) {
+            LOG.debug("creating initial admin account");
+            userService.createUser(username, "ADMIN", password);
+        }
+        if (userRepository.findByUsername("user") == null) {
+            LOG.debug("creating test user account");
+            userService.createUser("user", "USER", "test");
+        }
 
     }
 }

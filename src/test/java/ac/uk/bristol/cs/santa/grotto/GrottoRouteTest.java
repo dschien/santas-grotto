@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -19,6 +21,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class GrottoRouteTest {
+    private static final Logger LOG = LoggerFactory.getLogger(GrottoRouteTest.class);
+
 
     private MockMvc mvc;
 
@@ -32,7 +36,7 @@ public class GrottoRouteTest {
 
     @Test
     public void calculateGrottoRoute() throws Exception {
-        MvcResult mvcResult = mvc.perform(post("/grottoroute")
+        MvcResult mvcResult = mvc.perform(post("/api/grottoroute")
                 .contentType(MediaType.APPLICATION_JSON).content(
                         "[\n" +
                                 " {\"name\": \"Santa's Home\", \"address\": \"FI-96930 Arctic Circle. FINLAND\"},\n" +
@@ -42,7 +46,7 @@ public class GrottoRouteTest {
                                 " ]\n"
                 )).andExpect(status().isOk()).andReturn();
         String contentAsString = mvcResult.getResponse().getContentAsString();
-        System.out.println(contentAsString);
+        LOG.info(contentAsString);
         Assert.assertTrue("Santa's Home,Tate Modern,HW LT,Inverness Library,Santa's Home".equals(contentAsString));
     }
 
