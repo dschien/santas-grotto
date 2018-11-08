@@ -119,32 +119,32 @@ public class WebController extends WebMvcConfigurerAdapter {
 
     private ModelMapper modelMapper = new ModelMapper();
 //
-//    @Secured({"ROLE_ADMIN"})
-//    @PostMapping("/api/account")
-//    public ResponseEntity<?> create(@RequestBody AccountDTO account) {
-//        if (account.getPassword() == null) {
-//            return new ResponseEntity<>("password for account not included in DTO", HttpStatus.BAD_REQUEST);
-//        }
-//        User destination = null;
-//        ResponseEntity response = null;
-//        if (account.getUserId() != null) {
-//            Optional<User> oldUser = userRepository.findById(account.getUserId());
-//            if (oldUser.isPresent()) {
-//                destination = oldUser.get();
-//                modelMapper.map(account, destination);
-//            } else {
-//                return new ResponseEntity<>("user id not found or password not set", HttpStatus.BAD_REQUEST);
-//            }
-//        } else {
-//            destination = modelMapper.map(account, User.class);
-//        }
-//
-//        // save user
-//        LOG.info("creating/updating user account " + destination.getUsername());
-//        userService.saveUser(destination);
-//
-//
-//        return new ResponseEntity<>("OK", HttpStatus.CREATED);
-//    }
+    @Secured({"ROLE_ADMIN"})
+    @PostMapping("/api/account")
+    public ResponseEntity<?> create(@RequestBody AccountDTO account) {
+        if (account.getPassword() == null) {
+            return new ResponseEntity<>("password for account not included in DTO", HttpStatus.BAD_REQUEST);
+        }
+        User destination = null;
+        ResponseEntity response = null;
+        if (account.getUserId() != null) {
+            Optional<User> oldUser = userRepository.findById(account.getUserId());
+            if (oldUser.isPresent()) {
+                destination = oldUser.get();
+                modelMapper.map(account, destination);
+            } else {
+                return new ResponseEntity<>("user id not found or password not set", HttpStatus.BAD_REQUEST);
+            }
+        } else {
+            destination = modelMapper.map(account, User.class);
+        }
+
+        // save user
+        LOG.info("creating/updating user account " + destination.getUsername());
+        userService.saveUser(destination);
+
+
+        return new ResponseEntity<>("OK", HttpStatus.CREATED);
+    }
 
 }
