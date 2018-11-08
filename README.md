@@ -4,7 +4,7 @@
 # Dependencies
 * Java 11
 * Maven
-* Google Maps API (configuration below)
+* Google Maps Geolocation API (configuration below)
 * Postgresql 
 
 ## Google Maps API
@@ -51,18 +51,12 @@ https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx
 
 server {
 
-#       root /var/www/html;
-
-        # Add index.php to the list if you are using PHP
         index index.html index.htm index.nginx-debian.html;
 
-        server_name cms.spe-hub.net;
+        server_name YOURNAME HERE;
 
         location / {
                 proxy_pass http://127.0.0.1:8080;
-                # First attempt to serve request as file, then
-                # as directory, then fall back to displaying a 404.
-        #       try_files $uri $uri/ =404;
         }
 
 
@@ -80,7 +74,7 @@ server {
 
 
 server {
-    if ($host = test.cms.spe-hub.net) {
+    if ($host = YOUR NAME HERE) {
         return 301 https://$host$request_uri;
     } # managed by Certbot
 
@@ -88,7 +82,7 @@ server {
         listen 80 default_server;
         listen [::]:80 default_server;
 
-        server_name test.cms.spe-hub.net;
+        server_name YOUR NAME HERE;
         return 404; # managed by Certbot
 
 
@@ -96,3 +90,6 @@ server {
 
 
 ### let's encrypt
+
+## CI
+[![CircleCI](https://circleci.com/gh/dschien/santas-grotto.svg?style=svg&circle-token=7d61325169687c2a3091138240b672604e77a912)](https://circleci.com/gh/dschien/santas-grotto)
