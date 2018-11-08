@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/dschien/santas-grotto.svg?style=svg&circle-token=7d61325169687c2a3091138240b672604e77a912)](https://circleci.com/gh/dschien/santas-grotto)
+
 # Santa's Grotto App
 
 
@@ -90,6 +92,3 @@ server {
 
 
 ### let's encrypt
-
-## CI
-[![CircleCI](https://circleci.com/gh/dschien/santas-grotto.svg?style=svg&circle-token=7d61325169687c2a3091138240b672604e77a912)](https://circleci.com/gh/dschien/santas-grotto)
