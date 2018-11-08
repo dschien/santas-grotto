@@ -40,3 +40,28 @@ jobs:
     # run tests!
     - run: SPRING_PROFILES_ACTIVE=test mvn test '-Dtest=ac.uk.bristol.cs.santa.grotto.GrottoTest'
 
+
+  deploy:
+    machine:
+      enabled: true
+    steps:
+    - add_ssh_keys:
+        fingerprints:
+          - "a8:27:48:7a:b6:bb:d2:3e:b8:d8:b4:c0:56:df:eb:91"
+
+    - run:
+        name: Deploy Over SSH
+        command: |
+          ssh $SSH_USER@$SSH_HOST "cd santas-grotto && git pull && mvn clean package && cd target && sudo chown santa:santa santas-grotto-0.0.1-SNAPSHOT.jar && sudo chmod 500 santas-grotto-0.0.1-SNAPSHOT.jar && sudo service santa restart"
+
+  workflows:
+    version: 2
+    build-and-deploy:
+      jobs:
+      - build
+      - deploy:
+          requires:
+          - build
+          filters:
+            branches:
+              only: master
