@@ -36,13 +36,13 @@ This demonstrates externalisation of credentials - don't submit credentials to t
 In the `dev` profile an in-memory DB is used. It's easy to get going but you'll loose DB contents when your reload the app. 
 Better a RDBMS.
 
-For example, the `prod` environment (uses a Postgres DB)[https://github.com/dschien/santas-grotto/blob/7bd1d7bc12bd80ff2d29684f980008eedbcff45b/src/main/resources/application-prod.yml#L10].  
+For example, the `prod` environment (uses a Postgres DB)(https://github.com/dschien/santas-grotto/blob/7bd1d7bc12bd80ff2d29684f980008eedbcff45b/src/main/resources/application-prod.yml#L10).  
 
 Official instructions are [here](https://www.postgresql.org/download/).
 
 ### Dockerised Postgres 
 
-Alternatively, you can run the DB in (Docker)[https://www.docker.com/get-started]. It will keep the DB in a nicely contained environment without installing PG in your host system.
+Alternatively, you can run the DB in [Docker](https://www.docker.com/get-started). It will keep the DB in a nicely contained environment without installing PG in your host system.
 To install, follow the easy installation instructions.
   
   
@@ -71,8 +71,8 @@ You still need to create DB user and a DB. You can do that via the `psql` client
 Create a user  - here called 'santa'.
 `createuser santa -P --createdb -h postgres -U root`
 
-Make sure the user matches the (name in the config file) [https://github.com/dschien/santas-grotto/blob/7bd1d7bc12bd80ff2d29684f980008eedbcff45b/src/main/resources/application-prod.yml#L12].
-and matches the password in your `.secret.properties` file (see above). For an example of the file structure look (here)[https://github.com/dschien/santas-grotto/blob/master/src/main/resources/default.properties]. 
+Make sure the user matches the [name in the config file](https://github.com/dschien/santas-grotto/blob/7bd1d7bc12bd80ff2d29684f980008eedbcff45b/src/main/resources/application-prod.yml#L12).
+and matches the password in your `.secret.properties` file (see above). For an example of the file structure look [here](https://github.com/dschien/santas-grotto/blob/master/src/main/resources/default.properties). 
 
 Then create a DB for your user: 
 `createdb grottodb -U santa -h postgres` 
@@ -94,7 +94,7 @@ Open in the browser:
 
 # Deployment
 
-(Create a systemd service for Spring)[https://www.baeldung.com/spring-boot-app-as-a-service]
+[Create a systemd service for Spring](https://www.baeldung.com/spring-boot-app-as-a-service)
  
 ## SSL certs
 
