@@ -26,6 +26,7 @@ public class DataLoader implements ApplicationRunner {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private UserRepository userRepository;
 

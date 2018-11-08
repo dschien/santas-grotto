@@ -48,12 +48,14 @@
             <ul class="nav navbar-nav">
                 <li><a href="/contact/">Contact</a></li>
             </ul>
-            <ul>
-                <li><span sec:authentication="name">Username</span></li>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/" sec:authentication="name">Username</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li sec:authorize="isAuthenticated()"><p class="navbar-btn"><a class="btn btn-sm btn-success"
                                                                                href="/logout">Logout</a></p></li>
+                <li sec:authorize="isAnonymous()"><p class="navbar-btn"><a class="btn btn-sm btn-primary" role="button"
+                                                                           href="/login">Login</a></p></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
@@ -79,7 +81,11 @@
             <ul class="nav navbar-nav">
                 <li><a href="/contact/">Contact</a></li>
             </ul>
+
             <ul class="nav navbar-nav navbar-right">
+
+                <li sec:authorize="isAuthenticated()"><p class="navbar-btn"><a class="btn btn-sm btn-success"
+                                                                               href="/logout">Logout</a></p></li>
                 <li sec:authorize="isAnonymous()"><p class="navbar-btn"><a class="btn btn-sm btn-primary" role="button"
                                                                            href="/login">Login</a></p></li>
             </ul>
