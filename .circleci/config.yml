@@ -52,7 +52,7 @@ jobs:
     - run:
         name: Deploy Over SSH
         command: |
-          ssh $SSH_USER@$SSH_HOST "cd santas-grotto && git pull && mvn clean package && cd target && sudo chown santa:santa santas-grotto-0.0.1-SNAPSHOT.jar && sudo chmod 500 santas-grotto-0.0.1-SNAPSHOT.jar && sudo service santa restart"
+          ssh $SSH_USER@$SSH_HOST "cd santas-grotto && git pull && mvn clean package -DskipTests=True && cd target && sudo chown santa:santa santas-grotto-0.0.1-SNAPSHOT.jar && sudo chmod 500 santas-grotto-0.0.1-SNAPSHOT.jar && sudo service santa restart"
 
 workflows:
   version: 2
