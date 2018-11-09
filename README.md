@@ -183,9 +183,22 @@ server {
 
 # Repository Structure and "Spring Cookbook"
 
+For a basic tutorial on constructing a web application with Spring check [here](https://spring.io/guides/gs/serving-web-content/).
 
 
-## Controllers
+The repository has the typcial structure with 
+`src/main/java/` containing your runtime sources
+`src/main/resources/` containing config files and web assets
+
+There are corresponding directories for tests.
+
+The main package is `ac.uk.bristol.cs.santa.grotto`.
+
+There are packages for `business` (JPA persistence), `configuration` (security), `controllers` (see below).
+
+## Controllers 
+
+Here is the set of controllers defined in the project.   
 
 ### `CustomErrorController`
 Hooks into Springs own error handling mechanism that uses HTTP error codes. Depending on the specific code, different templates are rendered.
@@ -204,11 +217,12 @@ Hooks into Springs own error handling mechanism that uses HTTP error codes. Depe
 - return `String` template names to render using Thymeleaf
 - demonstrate use of (optional) PathVariables, Models 
 
-## A Contact Form with Spring Step-by-Step
+
+# A Form with Spring Step-by-Step
 
 The following is a detailed description of the project [contact form](https://github.com/dschien/santas-grotto/blob/master/src/main/resources/templates/contact.html) and the structure of corresponding [spring request handlers](https://github.com/dschien/santas-grotto/blob/e4225eb114fad82b9ef98b31aad8b17dda0b875e/src/main/java/ac/uk/bristol/cs/santa/grotto/MainController.java#L98). 
 
-### HTML Forms
+## HTML Forms
 
 Below is a simple contact form. It consists of opening and closing `form` tags and one or more `input` elements. 
 

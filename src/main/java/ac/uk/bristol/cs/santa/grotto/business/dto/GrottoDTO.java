@@ -1,4 +1,4 @@
-package ac.uk.bristol.cs.santa.grotto.rest;
+package ac.uk.bristol.cs.santa.grotto.business.dto;
 
 public class GrottoDTO {
     String address;
