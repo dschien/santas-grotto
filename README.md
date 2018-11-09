@@ -135,13 +135,18 @@ Open in the browser:
 
 [Create a systemd service for Spring](https://www.baeldung.com/spring-boot-app-as-a-service)
  
-## SSL certs
-
-### With Let's encrypt:
-https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx
 
 ### SSL Termination with Nginx
 
+Simply install nginx with apt (if on ubuntu): `sudo apt-get install nginx`
+
+Then get SSL certificates for your domain name from  
+[let's encrypt](https://certbot.eff.org/lets-encrypt/ubuntubionic-nginx). The instructions are straigth forward.
+
+
+You also need to make nginx forward traffic to your Spring application in Tomcat - 
+Here an example nginx config file to be placed/updated in `/etc/ngingx/sites-enabled/default` 
+```
 server {
 
         index index.html index.htm index.nginx-debian.html;
@@ -180,6 +185,22 @@ server {
 
 
 }
+```
+
+### Continuous deployment
+You can use the `.circleci/config.yml` file in this repository as a blueprint to have CI and CD with circleci.
+
+One thing to notice - you need to create SSH keys in the circle console. 
+
+I recommend you do that on the VM itself via: 
+`ssh-keygen -t rsa -N "" -b "2048" -C "santa" -f santa_keys`. Then add the public key to authorized_keys: `cat santa_keys.pub >> ~/.ssh/authorized_keys`
+Update the finger print in the `.circleci/config.yml` with your own key's fingerprint.
+
+Also, create env variables for user and host for the line `... $SSH_USER@$SSH_HOST...` in `.circleci/config.yml`.
+
+#### Spring server service
+The config file deploy script expects a service for your Spring application to exist on your server. I have followed the steps in [here](https://www.baeldung.com/spring-boot-app-as-a-service) and defined 
+a systemd service without problems.  
 
 # Repository Structure and "Spring Cookbook"
 
@@ -497,7 +518,9 @@ Our request mapping to ["/api/geolookup"](https://github.com/dschien/santas-grot
 
 
 ### Try on the command line
+
 `curl --user ZZZ:ABC http://localhost:8080/api/geolookup -X POST -H "Content-Type: text/plain" --data 'MVB, Woodland Rd, Bristol'`
+
 `curl --user XXX:YYY http://localhost:8080/api/account -X POST -H "Content-Type: application/json" --data '{"username":"dan","password":"test","name":"Dan", "role":"USER"}'`
   
 
