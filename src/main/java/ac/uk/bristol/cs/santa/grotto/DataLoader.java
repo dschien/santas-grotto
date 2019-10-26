@@ -38,6 +38,7 @@ public class DataLoader implements ApplicationRunner {
 
     public void run(ApplicationArguments args) {
 
+
         if (userRepository.findByUsername(username) == null) {
             LOG.debug("creating initial admin account");
             userService.createUser(username, "ROLE_ADMIN", password);

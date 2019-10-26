@@ -38,8 +38,10 @@ jobs:
         key: v1-dependencies-{{ checksum "pom.xml" }}
 
     # run tests!
-    - run: SPRING_PROFILES_ACTIVE=test mvn test '-Dtest=ac.uk.bristol.cs.santa.grotto.GrottoTest'
+    - run: SPRING_PROFILES_ACTIVE=test mvn verify '-Dtest=ac.uk.bristol.cs.santa.grotto.GrottoTest'
 
+    - store_artifacts:
+        path:  target/jacoco-reports
 
   deploy:
     machine:

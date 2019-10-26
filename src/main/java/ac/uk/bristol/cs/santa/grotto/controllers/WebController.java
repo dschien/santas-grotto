@@ -99,6 +99,8 @@ public class WebController extends WebMvcConfigurerAdapter {
     private ContactRequestRepository contactRepository;
 
 
+
+
     @GetMapping("/contact")
     public String showContactForm(ContactRequest contact) {
         return "contact";
