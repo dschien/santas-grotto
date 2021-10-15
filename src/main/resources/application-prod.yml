@@ -8,9 +8,9 @@ spring:
 
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/grottodb
-    username: santa
-    password: ${db_password}
+    url: jdbc:postgresql://${PG_HOST}:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
   jpa:
     hibernate:
       connection:
@@ -25,5 +25,5 @@ spring:
     # Naming strategy
     naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
 # Allows Hibernate to generate SQL optimized for a particular DBMS
-    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQL94Dialect
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
 

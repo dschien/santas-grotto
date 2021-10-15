@@ -2,7 +2,7 @@
 <dataset>
     <grotto id="1" name="Bristol Zoo" address="Bristol Zoo Gardens, Clifton, Bristol, BS8 3HA"/>
     <event id="1" grotto_id="1" date="2017-12-03 10:15:00"/>
-    <users id="1" username="testuser" email="test@me.com"/>
+    <users id="1" username="testuser" email="test@me.com" last_name="Doe"/>
     <event_booking id="1" user_id="1" event_id="1" visitors="3"/>
 
 </dataset>

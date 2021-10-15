@@ -83,27 +83,27 @@ Official instructions are [here](https://www.postgresql.org/download/).
 
 Alternatively, you can run the DB in [Docker](https://www.docker.com/get-started). It will keep the DB in a nicely contained environment without installing PG in your host system.
 To install, follow the easy installation instructions.
-  
-  
-The run the following command to run a PG container. Don't forget to replace the 'XXX' with something meaningful.  
+
+#### Create Network
+If you would like to also run the Spring App in docker, then you should create a new network for them:
+`docker network create sg-net`
+
+Then run the following command to run a PG container. Don't forget to replace the passwords with something secret.  
 ```bash
-docker run --rm -p 5432:5432 \
--e POSTGRES_PASSWORD=XXX -e POSTGRES_USER=XXX \
---name postgres-db \
--v /tmp/pgdata:/var/lib/postgresql/data
--d postgres:latest
+docker run -p 5432:5432 -v /some/folder/to/store/DB/files:/var/lib/postgresql/data --env POSTGRES_PASSWORD=mysecretpassword --env POSTGRES_USER=santa --env POSTGRES_DB=santa_db --name postgres --network sg-net --network-alias postgres postgres 
 ```
 
 This
  
 - starts a container from image `postgres:latest`, 
-- runs it in deamon mode (`-d`), stores the DB contents to a folder `/tmp/pgdata` (`-v /tmp/pgdata:/var/lib/postgresql/data`)  on your host - 
+- stores the DB contents to a folder `/some/folder/to/store/DB/files` (`-v /some/folder/to/store/DB/files:/var/lib/postgresql/data`)  on your host - 
 so you don't loose your data when your container restarts. 
 - passes  `POSTGRES_PASSWORD` and name as environment variables 
 - opens the default port `5432` from the host
-- will remove the container when stopped (`-rm`)  
 
-You still need to create DB user and a DB. You can do that via the `psql` client in the docker container: 
+This will also create a default DB (`--env POSTGRES_DB=santa_db`) and enables access to `POSTGRES_USER=santa`
+
+If you'd like to control the DB creation, you can a create DB user and a DB via the `psql` client in the docker container: 
 `docker run -it --rm --link postgres postgres /bin/bash`
 (note the `--link postgres` switch so that your container can reach the DB container)
 
@@ -123,13 +123,30 @@ You can achive the same with the following **with `psql` client**:
 `CREATE DATABASE grottodb;`
 `GRANT ALL PRIVILEGES ON DATABASE grottodb TO santa;`
 
-## Run
-`mvn spring-boot:run`
+## Run spring app in docker
+It is possible to also run the spring server in docker. 
+There is a `Dockerfile` in the project. Let's assume you build this out to an image, with a tag of `santas_grotto`, then you can run the below to link it to the PG instance:
+(this is the build command: `docker build -t santas_grotto .`)
+
+```shell
+docker run -p 8080:8080  
+--env POSTGRES_PASSWORD=mysecretpassword 
+--env POSTGRES_USER=santa 
+--env POSTGRES_DB=santa_db 
+--env SPRING_PROFILES_ACTIVE=prod 
+--env PG_HOST=postgres 
+--name santas_grotto 
+--network sg-net 
+santas_grotto
+```
 
 Open in the browser:
 [http://localhost:8080/](http://localhost:8080/)
 
 *CONGRATULATIONS* if you made it to here!
+
+## Run in your host environment
+`mvn spring-boot:run`
 
 # Deployment
 

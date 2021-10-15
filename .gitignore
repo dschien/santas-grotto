@@ -24,3 +24,4 @@ nbdist/
 .nb-gradle/
 
 gh-md-toc
+/pgdata_docker/

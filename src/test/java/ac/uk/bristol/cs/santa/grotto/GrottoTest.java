@@ -31,8 +31,8 @@ import java.util.Optional;
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
         TransactionalTestExecutionListener.class, // use transactional test execution
         DbUnitTestExecutionListener.class}) // to read datasets from file
-@ActiveProfiles("test") // use application-test.yml properties (in-memory DB)
 @Transactional // rollback DB in between tests
+@ActiveProfiles("test") // use application-test.yml properties (in-memory DB)
 public class GrottoTest {
 
 
