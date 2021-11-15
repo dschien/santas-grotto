@@ -20,8 +20,9 @@ spring:
         # schema will be automatically updated accordingly to java entities found in
         # the project
       ddl-auto: update
-      # Show or not log for each sql query
+      # Show or not log for each sql query - this would go the CMD line -- prefer logging in `application.yml`
 #      show-sql: false
+      format_sql: true
     # Naming strategy
     naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
 # Allows Hibernate to generate SQL optimized for a particular DBMS

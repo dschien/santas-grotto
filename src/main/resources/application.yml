@@ -13,8 +13,10 @@ logging:
     root: INFO
     ac.uk.bristol.cs.santa.grotto: DEBUG
     org.springframework.web: DEBUG
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
-spring:
+
   #  set env variable SPRING_PROFILES_ACTIVE=dev on dev machine
   profiles.active: prod
 
