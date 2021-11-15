@@ -101,6 +101,7 @@ so you don't loose your data when your container restarts.
 - passes  `POSTGRES_PASSWORD` and name as environment variables 
 - opens the default port `5432` from the host
 
+### Create Database
 This will also create a default DB (`--env POSTGRES_DB=santa_db`) and enables access to `POSTGRES_USER=santa`
 
 If you'd like to control the DB creation, you can a create DB user and a DB via the `psql` client in the docker container: 
@@ -113,6 +114,7 @@ Create a user  - here called 'santa'.
 Make sure the user matches the [name in the config file](https://github.com/dschien/santas-grotto/blob/7bd1d7bc12bd80ff2d29684f980008eedbcff45b/src/main/resources/application-prod.yml#L12).
 and matches the password in your `.secret.properties` file (see above). For an example of the file structure look [here](https://github.com/dschien/santas-grotto/blob/master/src/main/resources/default.properties). 
 
+### Create Database
 Then create a DB for your user: 
 `createdb grottodb -U santa -h postgres` 
 
