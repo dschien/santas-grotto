@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
-        <webjars.bootstrap.version>3.3.7</webjars.bootstrap.version>
+        <webjars.bootstrap.version>3.4.1</webjars.bootstrap.version>
         <webjars.jquery.version>2.2.4</webjars.jquery.version>
         <google-maps-services.version>0.2.5</google-maps-services.version>
         <spring-boot.version>2.1.0.RELEASE</spring-boot.version>
